@@ -45,7 +45,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('classrooms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 255);
             $table->string('code', 255);
@@ -56,20 +56,20 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('class_students', function (Blueprint $table) {
+        Schema::create('classroom_students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('classroom_id');
             $table->unsignedBigInteger('student_id');
-            $table->foreign('class_id')->references('id')->on('classes');
+            $table->foreign('classroom_id')->references('id')->on('classrooms');
             $table->foreign('student_id')->references('id')->on('students');
             $table->timestamps();
         });
 
-        Schema::create('class_teachers', function (Blueprint $table) {
+        Schema::create('classroom_teachers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('classroom_id');
             $table->unsignedBigInteger('teacher_id');
-            $table->foreign('class_id')->references('id')->on('classes');
+            $table->foreign('classroom_id')->references('id')->on('classrooms');
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->timestamps();
         });
@@ -84,14 +84,14 @@ return new class extends Migration
 
         Schema::create('schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('classroom_id');
             $table->unsignedBigInteger('teacher_id');
             $table->unsignedBigInteger('room_id');
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->enum('day_of_week', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
             $table->enum('status', ['scheduled', 'completed', 'canceled']);
-            $table->foreign('class_id')->references('id')->on('classes');
+            $table->foreign('classroom_id')->references('id')->on('classrooms');
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->timestamps();
@@ -122,9 +122,9 @@ return new class extends Migration
     {
         Schema::dropIfExists('notifications');
         Schema::dropIfExists('schedules');
-        Schema::dropIfExists('class_teachers');
-        Schema::dropIfExists('class_students');
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('classroom_teachers');
+        Schema::dropIfExists('classroom_students');
+        Schema::dropIfExists('classrooms');
         Schema::dropIfExists('courses');
         Schema::dropIfExists('students');
         Schema::dropIfExists('teachers');
