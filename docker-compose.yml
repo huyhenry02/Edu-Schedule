@@ -1,0 +1,57 @@
+version: "3.8"
+services:
+    app:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        container_name: edu_schedule-app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+        networks:
+            - edu_schedule-net
+    nginx:
+        image: nginx:alpine
+        container_name: edu_schedule-nginx
+        restart: unless-stopped
+        ports:
+            - "8322:80"
+        volumes:
+            - .:/var/www
+            - ./dev/nginx/:/etc/nginx/conf.d/
+        networks:
+            - edu_schedule-net
+    db:
+        image: postgres:latest
+        container_name: edu_schedule-postgres
+        # we mount a datavolume to make sure we don't loose data
+        volumes:
+            - ./dbdata:/var/lib/postgresql/data
+        ports:
+            - "8422:5432"
+        networks:
+            - edu_schedule-net
+        # setting some env vars to create the DB
+        environment:
+            - POSTGRES_DB=edu_schedule
+            - POSTGRES_USER=edu_schedule
+            - POSTGRES_PASSWORD=edu_schedule
+        restart: always
+    redis:
+        image: redis:latest
+        container_name: edu_schedule-redis
+        ports:
+            - "5380:6379"
+        networks:
+            - edu_schedule-net
+#Docker Networks
+networks:
+    edu_schedule-net:
+        driver: bridge
+#Volumes
+volumes:
+    edu_schedule_data:
+        driver: local
