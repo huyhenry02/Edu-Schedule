@@ -49,4 +49,17 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+     public const USER_ACCESS_TOKEN = 'app';
+    public function revokeExistingTokensFor(string $appName): void
+    {
+        $this->tokens()->where(
+            [
+                'name' => $appName,
+                'revoked' => false
+            ]
+        )->update([
+            'revoked' => true,
+            'updated_at' => now(),
+        ]);
+    }
 }

@@ -13,6 +13,7 @@ class RepositoriesProvider extends ServiceProvider
     {
         $repositories = [
             'Example',
+            'User',
         ];
         foreach ($repositories as $repository) {
             $this->app->bind('App\Repositories\Interfaces\\' . $repository . 'Interface',

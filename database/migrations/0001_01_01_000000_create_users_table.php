@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name', 255);
             $table->string('user_name', 255);
+            $table->string('password', 255);
             $table->string('email', 255);
             $table->string('phone_number', 255);
             $table->enum('user_type', ['admin', 'teacher', 'student']);

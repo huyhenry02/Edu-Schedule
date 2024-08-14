@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\Example\Requests;
+namespace App\Modules\User\Requests;
 
 use App\Http\Requests\CommonRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class ExampleRequest extends CommonRequest
+class SignInRequest extends CommonRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,8 @@ class ExampleRequest extends CommonRequest
     public function rules(): array
     {
         return [
-            //
+            'email'      => 'required|email',
+            'password'   => 'required|min:6',
         ];
     }
 }
