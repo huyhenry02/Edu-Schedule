@@ -13,6 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthController extends ApiController
 {
 
+    /**
+     * Login
+     *
+     * @param SignInRequest $request
+     * @return JsonResponse
+     */
     public function login(SignInRequest $request): JsonResponse
     {
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
@@ -26,6 +32,11 @@ class AuthController extends ApiController
         return $this->respondUnauthorized();
     }
 
+    /**
+     * Logout
+     *
+     * @return JsonResponse
+     */
     public function logout(): JsonResponse
     {
         try {
