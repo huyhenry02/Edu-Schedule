@@ -49,7 +49,15 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
-     public const USER_ACCESS_TOKEN = 'app';
+    public const USER_ACCESS_TOKEN = 'app';
+    public const ADMIN_ACCESS = 'admin';
+    public const TEACHER_ACCESS = 'teacher';
+    public const STUDENT_ACCESS = 'student';
+    public const USER_TYPES = [
+        self::ADMIN_ACCESS,
+        self::TEACHER_ACCESS,
+        self::STUDENT_ACCESS,
+    ];
     public function revokeExistingTokensFor(string $appName): void
     {
         $this->tokens()->where(
