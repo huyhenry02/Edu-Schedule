@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('user_name', 255);
             $table->string('password', 255);
             $table->string('email', 255);
-            $table->string('phone_number', 255);
+            $table->string('phone_number', 255)->nullable();
             $table->enum('user_type', ['admin', 'teacher', 'student']);
             $table->dateTime('email_verified_at')->nullable();
             $table->date('birthday')->nullable();

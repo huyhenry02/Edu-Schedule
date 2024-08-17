@@ -9,9 +9,16 @@ use App\Modules\User\Transformers\UserShowTransformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Diff\Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminApiController extends ApiController
 {
+    /**
+     * Create Admin
+     *
+     * @param CreateAdminRequest $request
+     * @return JsonResponse
+     */
     public function createAdmin(CreateAdminRequest $request): JsonResponse
     {
         DB::beginTransaction();
@@ -25,11 +32,11 @@ class AdminApiController extends ApiController
             return $this->respondSuccess($response);
         }catch (Exception $e) {
             DB::rollBack();
-            return $this->respondError($e->getMessage(), 500);
+            return $this->respondError($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
-    public function createTeacher()
+    public function updateInformationStudent()
     {
 
     }

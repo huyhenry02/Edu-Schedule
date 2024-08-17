@@ -26,10 +26,10 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->date('join_date');
-            $table->text('address');
-            $table->json('parent_contact');
-            $table->enum('status', ['active', 'inactive']);
+            $table->date('join_date')->nullable();
+            $table->text('address')->nullable();
+            $table->json('parent_contact')->nullable()->nullable();
+            $table->enum('status', ['active', 'studying', 'inactive']);
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

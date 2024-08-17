@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\Example\Requests;
+namespace App\Modules\Student\Requests;
 
 use App\Http\Requests\CommonRequest;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class ExampleRequest extends CommonRequest
+class SignUpForStudentRequest extends CommonRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,10 @@ class ExampleRequest extends CommonRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string',
+            'user_name' => 'required|string',
+            'password' => 'required|string',
+            'email' => 'required|email',
         ];
     }
 }
